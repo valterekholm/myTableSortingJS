@@ -7,6 +7,10 @@ function makeRowsSortableWithLinks(table, useCookies) {
     if (getSortableRowsLength(table) < 2) return false;
 
     var tbl = table;
+    
+    if(typeof getTHead(tbl) == "undefined"){
+        makeTHead(tbl);
+    }
     var width = getTableWidth(tbl);
     for (var i = 0; i < width; i++) {
         var lin = null;
@@ -278,6 +282,13 @@ function makeSort(tb1, th) {
     //spara sortorder i cookie
 
     setCookie("sortorder", getInnermostText(th), 10);
+}
+
+//if missing
+function makeTHead(tbl){
+    var header = tbl.createTHead();
+    var fth = tbl.getElementsByTagName("tr")[0];
+    header.appendChild(fth);
 }
 
 function getTHead(tbl) {
